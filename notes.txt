@@ -1,0 +1,59 @@
+
+const name = "world"
+
+const Greeting = () => {
+	return <div>Hello {name}!</div>
+}
+
+===================
+
+const Greeting = (name) => {
+	return <div>Hello {name}!</div>
+}
+
+=================
+
+const Counter = () => {
+
+	const count = new State(0)
+	
+	addEventListener("mousedown", () => count.value++)
+	
+	return <div>Clicks: {count}</div>
+	
+}
+
+================
+
+const Counter = () => {
+
+	const count = new State(0)
+	const doubled = new Hook(() => count * 2)
+	
+	addEventListener("mousedown", () => count.value++)
+	
+	return <div>
+		<div>Clicks: {count}</div>
+		<div>Doubled: {doubled}</div>
+	</div>
+
+}
+
+=====================
+
+const Measurement = () => {
+
+	const width = new State(window.innerWidth)
+	const height = new State(window.innerHeight)
+	
+	addEventListener("resize", () => {
+		width.value = innerWidth
+		height.value = innerHeight
+	})
+	
+	return <div>
+		<div>Width: {width}</div>
+		<div>Height: {height}</div>
+	</div>
+	
+}
