@@ -47,8 +47,8 @@ const Measurement = () => {
 	const height = new State(window.innerHeight)
 	
 	addEventListener("resize", () => {
-		width.value = innerWidth
-		height.value = innerHeight
+		width.value = window.innerWidth
+		height.value = window.innerHeight
 	})
 	
 	return <div>
