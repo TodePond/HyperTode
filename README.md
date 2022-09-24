@@ -8,4 +8,4 @@ HyperTode will be my JSX alternative.
 🐸 Three exports: `hypertode`, `State`, `Hook`<br>
 
 ## Anything else I should know?
-Yes but it's a secret.
+Yes.
