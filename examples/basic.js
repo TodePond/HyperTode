@@ -41,6 +41,7 @@ window.addEventListener("keydown", (e) => {
 //==========//
 // DOCUMENT //
 //==========//
+document.body.appendChild(document.createElement("br"))
 document.body.appendChild(counter)
 document.body.appendChild(doubler)
 document.body.appendChild(history)

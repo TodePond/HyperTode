@@ -22,5 +22,6 @@ sync(display.style, "display", new Hook(() => visible.value? "block" : "none"))
 //==========//
 // DOCUMENT //
 //==========//
+document.body.appendChild(document.createElement("br"))
 document.body.appendChild(button)
 document.body.appendChild(display)
