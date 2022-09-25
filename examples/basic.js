@@ -1,4 +1,4 @@
-import { State, hook } from "../../hypertode-import.js"
+import { State, Hook, sync } from "../../hypertode-import.js"
 
 //==========//
 // ELEMENTS //
@@ -12,15 +12,15 @@ const last = document.createElement("div")
 // STATE //
 //=======//
 const count = new State(0)
-const doubled = hook(() => count * 2)
+const doubled = new Hook(() => count * 2)
 
 const key = new State("")
 const keys = new State([])
 
-hook(() => `Click Count: ${count}`).sync(counter, "textContent")
-hook(() => `Doubled: ${doubled}`).sync(doubler, "textContent")
-hook(() => `Keyboard History: ${keys.value.join("")}`).sync(history, "textContent")
-hook(() => key == ""? "" : `Key Pressed: ${key}`).sync(last, "textContent")
+sync(counter, "textContent", new Hook(() => `Click Count: ${count}`))
+sync(doubler, "textContent", new Hook(() => `Doubled: ${doubled}`))
+sync(history, "textContent", new Hook(() => `Keyboard History: ${keys.value.join("")}`))
+sync(last, "textContent", new Hook(() => key == ""? "" : `Key Pressed: ${key}`))
 
 
 //=============//
