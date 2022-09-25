@@ -7,6 +7,10 @@ const counter = document.createElement("div")
 const doubler = document.createElement("div")
 const history = document.createElement("div")
 const last = document.createElement("div")
+const button = document.createElement("button")
+
+button.textContent = "Reset History"
+history.style["overflow"] = "hidden"
 
 //=======//
 // STATE //
@@ -20,8 +24,7 @@ const keys = new State([])
 sync(counter, "textContent", new Hook(() => `Click Count: ${count}`))
 sync(doubler, "textContent", new Hook(() => `Doubled: ${doubled}`))
 sync(history, "textContent", new Hook(() => `Keyboard History: ${keys.value.join("")}`))
-sync(last, "textContent", new Hook(() => key == ""? "" : `Key Pressed: ${key}`))
-
+sync(last, "textContent", new Hook(() => key == ""? "Waiting for key press..." : `Key Pressed: ${key}`))
 
 //=============//
 // INTERACTION //
@@ -38,6 +41,11 @@ window.addEventListener("keydown", (e) => {
 
 })
 
+button.addEventListener("click", () => {
+	keys.value.length = 0
+	keys.update()
+})
+
 //==========//
 // DOCUMENT //
 //==========//
@@ -45,4 +53,5 @@ document.body.appendChild(document.createElement("br"))
 document.body.appendChild(counter)
 document.body.appendChild(doubler)
 document.body.appendChild(history)
+document.body.appendChild(button)
 document.body.appendChild(last)
