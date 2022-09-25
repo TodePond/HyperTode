@@ -1,23 +1,16 @@
 import { State, hook } from "../../hypertode-import.js"
 
-//=======//
-// SETUP //
-//=======//
+//==========//
+// ELEMENTS //
+//==========//
 const counter = document.createElement("div")
-document.body.appendChild(counter)
-
 const doubler = document.createElement("div")
-document.body.appendChild(doubler)
-
 const history = document.createElement("div")
-document.body.appendChild(history)
-
 const last = document.createElement("div")
-document.body.appendChild(last)
 
-//=========//
-// CONTENT //
-//=========//
+//=======//
+// STATE //
+//=======//
 const count = new State(0)
 const doubled = hook(() => count * 2)
 
@@ -44,3 +37,11 @@ window.addEventListener("keydown", (e) => {
 	keys.update()
 
 })
+
+//==========//
+// DOCUMENT //
+//==========//
+document.body.appendChild(counter)
+document.body.appendChild(doubler)
+document.body.appendChild(history)
+document.body.appendChild(last)
