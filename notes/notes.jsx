@@ -66,7 +66,7 @@ const Toggle = () => {
 	
 	return (
 		<div>
-			<button onclick={handleClick}>{isExpanded? "Hide" : "Show"</button>
+			<button onclick={handleClick}>{isExpanded? "Hide" : "Show"}</button>
 			{isExpanded? <div>Hello world!</div> : ""}
 		</div>
 	)
@@ -104,6 +104,27 @@ const App = () => {
 		<button onclick={() => count.value++}>
 			Clicks: {count}
 		</button>
+	</div>
+	
+}
+
+//=========================
+
+const App = () => {
+	
+	const count = new State(0)
+	const name = new State("world")
+	
+	const input = <input value={name}></input>
+	input.addEventListener("input", (e) => name.value = e.target.value)
+	
+	const button = <button>Clicks: {count}</button>
+	button.addEventListener("click", () => count.value++)
+	
+	return <div class="app">
+		<h1>Hello {name}!</h1>
+		{input}
+		{button}
 	</div>
 	
 }
