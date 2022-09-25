@@ -24,9 +24,9 @@ const doubled = new Hook(() => count * 2)
 const key = new State("")
 const keys = new State([])
 
-sync(counter, "textContent", () => `Count: ${count}`)
+sync(counter, "textContent", () => `Click Count: ${count}`)
 sync(doubler, "textContent", () => `Doubled: ${doubled}`)
-sync(history, "textContent", () => `Keyboard History: ${keys.value.join(", ")}`)
+sync(history, "textContent", () => `Keyboard History: ${keys.value.join("")}`)
 sync(last, "textContent", () => key == ""? "" : `Key Pressed: ${key}`)
 
 //=============//
@@ -41,5 +41,5 @@ window.addEventListener("keydown", (e) => {
 
 	keys.value.push(e.key)
 	keys.update()
-	
+
 })
