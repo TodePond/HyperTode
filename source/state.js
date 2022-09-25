@@ -4,15 +4,13 @@ export const State = class {
 
 	constructor(value) {
 		this.hooks = new Set()
-		this.value = value
+		this.syncs = new Set()
+		this._value = value
 	}
 
 	set value(value) {
 		this._value = value
-		for (const hook of this.hooks.values()) {
-			if (hook === null) continue
-			hook.update()
-		}
+		this.update()
 	}
 
 	get value() {
@@ -23,7 +21,14 @@ export const State = class {
 	}
 
 	update() {
-		this.value = this.value
+		for (const hook of this.hooks.values()) {
+			hook.update()
+		}
+
+		for (const sync of this.syncs.values()) {
+			const [object, propertyName] = sync
+			object[propertyName] = this._value
+		}
 	}
 
 	valueOf() {
@@ -34,36 +39,34 @@ export const State = class {
 		return `${this.value}`
 	}
 
+	sync(object, propertyName) {
+		const sync = [object, propertyName]
+		this.syncs.add(sync)
+		object[propertyName] = this._value
+		return this
+	}
+
 }
 
-export const Hook = class extends State {
-	constructor(get, {object, propertyName} = {}) {
+const Hook = class extends State {
+	constructor(get) {
 		super()
 		if (typeof get !== "function") {
 			const value = get
 			get = () => value
 		}
 		this.get = get
-		this.object = object
-		this.propertyName = propertyName
 		this.update()
 	}
 
 	update() {
 		const oldHook = State.hook
 		State.hook = this
-
-		const value = this.get(this._value)
-		if (this.object !== undefined) {
-			this.object[this.propertyName] = value
-		}
-		this.value = value
-
+		this._value = this.get()
 		State.hook = oldHook
+
+		State.prototype.update.apply(this, [])
 	}
 }
 
-export const sync = (object, propertyName, get) => {
-	const hook = new Hook(get, {object, propertyName})
-	return hook
-}
+export const hook = (get) => new Hook(get)
