@@ -22,6 +22,10 @@ export const State = class {
 		return this._value
 	}
 
+	update() {
+		this.value = this.value
+	}
+
 	valueOf() {
 		return this.value
 	}
@@ -49,7 +53,7 @@ export const Hook = class extends State {
 		const oldHook = State.hook
 		State.hook = this
 
-		const value = this.get()
+		const value = this.get(this._value)
 		if (this.object !== undefined) {
 			this.object[this.propertyName] = value
 		}
