@@ -50,14 +50,6 @@ const HyperTodeFrogasaurus = {}
 			toString() {
 				return `${this.value}`
 			}
-		
-			sync(object, propertyName) {
-				const sync = [object, propertyName]
-				this.syncs.add(sync)
-				object[propertyName] = this._value
-				return this
-			}
-		
 		}
 		
 		const Hook = class extends State {
@@ -81,10 +73,16 @@ const HyperTodeFrogasaurus = {}
 			}
 		}
 		
-		const hook = (get) => new Hook(get)
+		const sync = (object, propertyName, state) => {
+			const sync = [object, propertyName]
+			state.syncs.add(sync)
+			object[propertyName] = state.value
+		}
+		
 
 		HyperTodeFrogasaurus["./state.js"].State = State
-		HyperTodeFrogasaurus["./state.js"].hook = hook
+		HyperTodeFrogasaurus["./state.js"].Hook = Hook
+		HyperTodeFrogasaurus["./state.js"].sync = sync
 	}
 
 
@@ -96,5 +94,6 @@ const HyperTodeFrogasaurus = {}
 //=========//
 const HyperTode = {
 	State: HyperTodeFrogasaurus["./state.js"].State,
-	hook: HyperTodeFrogasaurus["./state.js"].hook,
+	Hook: HyperTodeFrogasaurus["./state.js"].Hook,
+	sync: HyperTodeFrogasaurus["./state.js"].sync,
 }

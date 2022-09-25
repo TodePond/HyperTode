@@ -38,17 +38,9 @@ export const State = class {
 	toString() {
 		return `${this.value}`
 	}
-
-	sync(object, propertyName) {
-		const sync = [object, propertyName]
-		this.syncs.add(sync)
-		object[propertyName] = this._value
-		return this
-	}
-
 }
 
-const Hook = class extends State {
+export const Hook = class extends State {
 	constructor(get) {
 		super()
 		if (typeof get !== "function") {
@@ -69,4 +61,8 @@ const Hook = class extends State {
 	}
 }
 
-export const hook = (get) => new Hook(get)
+export const sync = (object, propertyName, state) => {
+	const sync = [object, propertyName]
+	state.syncs.add(sync)
+	object[propertyName] = state.value
+}

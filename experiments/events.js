@@ -1,4 +1,4 @@
-import { State, hook } from "../../hypertode-import.js"
+import { State, Hook, sync } from "../../hypertode-import.js"
 
 //==========//
 // ELEMENTS //
@@ -15,9 +15,9 @@ const visible = new State(true)
 window.addEventListener("keydown", () => count.value++)
 button.addEventListener("click", () => visible.value = !visible.value)
 
-hook(() => `Keys Pressed: ${count}`).sync(display, "textContent")
-hook(() => visible.value? "Hide" : "Show").sync(button, "textContent")
-hook(() => visible.value? "block" : "none").sync(display.style, "display")
+sync(display, "textContent", new Hook(() => `Keys Pressed: ${count}`))
+sync(button, "textContent", new Hook(() => visible.value? "Hide" : "Show"))
+sync(display.style, "display", new Hook(() => visible.value? "block" : "none"))
 
 //==========//
 // DOCUMENT //
